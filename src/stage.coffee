@@ -1,17 +1,19 @@
+# The Game stage.
 class Stage extends PIXI.Container
 
+  # Attrs of stage.
   STAGE_WIDTH: 640
   STAGE_HEIGHT: 1024
 
+  # Attrs of components.
   AVATAR_X: 320
   AVATAR_Y: 260
-
   SPEAKER_X: 320
   SPEAKER_Y: 580
-
   SELECTOR_X: 320
   SELECTOR_Y: 780
 
+  # Construct a stage.
   constructor: ->
     super
     @width = @STAGE_WIDTH
@@ -23,6 +25,8 @@ class Stage extends PIXI.Container
     @addChild @selector
     @speaker = new Speaker(@SPEAKER_X, @SPEAKER_Y)
     @addChild @speaker
+
+    ## All this below is for debug.
 
     # @testg1 = new PIXI.Graphics
     # @testg1.lineStyle 0
@@ -77,25 +81,45 @@ class Stage extends PIXI.Container
     # @testg5.interactive = true;
     # @testg5.on('touchstart', ()=> );
     # @addChild @testg5
+
+    ## End of debug section.
+
     @
 
+  # Scale the size of stage to be responsive to screen.
+  # @param width
+  # @param height
   scaleToSize: (width, height) ->
     @scale.x = width / @STAGE_WIDTH
     @scale.y = height / @STAGE_HEIGHT
 
+  # Alter mood of avatar.
+  # @param mood constants for moods.
+  # @param cb callback of animation.
   alterMood: (mood, cb) ->
     @avatar.alterMood(mood, cb)
 
+  # Speak a sentence.
+  # @param sentence
+  # @cb callback
   speak: (sentence, cb) ->
     @speaker.speak(sentence, cb)
 
+  # Show avatar.
+  # @cb callback
   avatarAppear: (cb) ->
     @avatar.appear(cb)
 
+  # Hide avatar.
+  # @cb callback
   avatarDisappear: (cb) ->
     @avatar.disappear(cb)
 
+  # Begin a selection.
+  # @param selections array of selections.
+  # @cb callback with arg "index of selected item".
   select: (selections, cb) ->
     @selector.select(selections, cb)
 
+  # Legacy.
   update: (time)->

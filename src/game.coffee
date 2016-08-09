@@ -1,3 +1,4 @@
+# Main object for the game.
 Game =
 
   # Entrance for entire game.
@@ -8,7 +9,7 @@ Game =
     requestAnimationFrame((time)=> @mainLoop.call(@, time))
     @
 
-  # Create a canvas on the center of window
+  # Create a canvas on the center of window.
   createCanvas: ->
     @renderer = PIXI.autoDetectRenderer(800, 600, {transparent : true, antialias: true})
     document.body.appendChild @renderer.view
@@ -19,7 +20,7 @@ Game =
     )
     @
 
-  # Keep canvas responsive to window size
+  # Keep canvas responsive to window size.
   scaleToWindowSize: ->
     @height = window.innerHeight - 8
     @width = @height * 10 / 16
@@ -29,10 +30,12 @@ Game =
     @plot.scaleToSize(@width, @height)
     @
 
+  # Create a plot object.
   createPlot: ->
     @plot = new Plot
     @
 
+  # Main loop for the game.
   mainLoop: (time)->
     TWEEN.update(time)
     @plot.update(time)
